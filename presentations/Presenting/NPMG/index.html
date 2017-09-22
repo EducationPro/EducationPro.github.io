@@ -30,7 +30,16 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link href="../../../presentations/reveal.js/css/template.css" rel="stylesheet" /> </head>
-
+		<script src="http://www.chartjs.org/dist/2.7.0/Chart.bundle.js"></script><style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style>
+    <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+    <style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
 <body>
     <div class="reveal">
         <div class="slides">
@@ -473,11 +482,47 @@
                         <div class="title">България</div>
                     </div>
                     <div class="body" style="font-size: 100%">
+												Недостатъци спрямо вече изброените системи:<br>
+												<ul>
+														<li>малък избор</li>
+														<li>стари програми</li>
+														<li>ниско ниво на практическа насоченост</li>
+												</ul>
+												<br>
+												<br>
+												Последвали проблеми:
+												<br>
+												<ul>
+														<li>губи се интереса на учениците</li>
+														<li>засилва се желанието им да „избягат“</li>
+												</ul>
                     </div>
                     <br>
                     <br>
                     <div class="foot">
                         <div class="number"> </div>
+                        <div class="follow"> </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="head">
+                        <div class="logo"></div>
+                        <div class="title">Проучване сред<br>българските ученици</div>
+                    </div>
+                    <div class="body" style="font-size: 100%">
+												<br>
+    <div id="container" style="width: 75%;"><div style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;" class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+		<!--
+        <canvas id="canvas" style="display: block; height: 600px; width: 1400px;" width="1500" height="600" class="chartjs-render-monitor"></canvas>-->
+        <canvas id="canvas" width="1900" height="1100" class="chartjs-render-monitor"></canvas>
+    </div>
+
+                    </div>
+                    <br>
+                    <br>
+                    <div class="foot">
+                        <div class="number"> </div>
+												<div class="box-info">национално представително изследване, извършено преди началото на новата учебна година по поръчка на Центъра за приобщаващо образование, в рамките на програма "С поглед в бъдещето – училището има смисъл", реализирана с подкрепата на фондация "Велукс"</div>
                         <div class="follow"> </div>
                     </div>
                 </section>
@@ -579,6 +624,101 @@
             numbers[i].innerHTML = (i + 1);
         }
     </script>
+    <script>
+        var color = Chart.helpers.color;
+        var barChartData = {
+						labels: ["ФВС", "ИИ", "Музика", "История", "Математика", "География", "АЕ", "Важни предмети", "Важни предмети"],
+            datasets: [
+							{
+									label: 'Харесван (в %)',
+									backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+									borderColor: window.chartColors.red,
+									borderWidth: 1,
+									data: [
+										76, 57, 56, 43, 40, 35, 31, 00, 00
+									]
+							}, 
+							{
+									label: 'Не харесван (в %)',
+									backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+									borderColor: window.chartColors.red,
+									borderWidth: 1,
+									data: [
+										24, 43, 44, 57, 60, 65, 69, 00, 00
+									]
+							}, 
+							{
+									label: 'Трудни (в %)',
+									backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+									borderColor: window.chartColors.red,
+									borderWidth: 1,
+									data: [
+										00, 00, 00, 00, 00, 00, 00, 59, 00
+									]
+							}, 
+							{
+									label: 'Безинтересни (в %)',
+									backgroundColor: color(window.chartColors.orange).alpha(0.5).rgbString(),
+									borderColor: window.chartColors.red,
+									borderWidth: 1,
+									data: [
+										00, 00, 00, 00, 00, 00, 00, 00, 46  
+									]
+							},
+						]
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+												labels: {
+														fontSize: 20,
+												},
+                    },
+										scales: 
+										{
+											xAxes: 
+											[
+												{
+													ticks: 
+													{
+														fontSize: 22
+													}
+												}
+											],
+											yAxes: 
+											[
+												{
+													ticks: 
+													{
+														callback: function(value, index, values) 
+														{
+															return value + '%';
+														},
+														fontSize: 20
+													}
+												}
+											]
+										},
+                    title: {
+                        display: true,
+                        text: 'Центъра за приобщаващо образование, програма "С поглед в бъдещето – училището има смисъл"',
+												fontSize: 22
+                    }
+                }
+            });
+
+        };
+
+        var colorNames = Object.keys(window.chartColors);
+    </script>
+
 </body>
 
 </html>
