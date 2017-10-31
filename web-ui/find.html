@@ -92,6 +92,9 @@
 						window.tree = [];	
 							$('#spinner').addClass ('fa-spin');
 						var request = $.ajax({
+							    xhrFields: {
+        withCredentials: true
+    },
 							async: false,
 							method: 'GET',
 							url: "http://arteach.tk/api/v1.1/text/answer/", 
@@ -154,6 +157,9 @@
 							$('#spinner').addClass ('fa-spin');
 
 							var request = $.ajax({
+								    xhrFields: {
+        withCredentials: true
+    },
 								async: false,
 								method: 'GET',
 								url: "http://arteach.tk/api/v1.0/text/answer/", 
