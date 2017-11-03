@@ -92,6 +92,10 @@
 						window.tree = [];	
 							$('#spinner').addClass ('fa-spin');
 						var request = $.ajax({
+							    xhrFields: {
+        withCredentials: true
+    },
+							dataType: 'jsonp',
 							async: false,
 							method: 'GET',
 							url: "http://arteach.tk/api/v1.1/text/answer/", 
@@ -146,9 +150,7 @@
 							}
 						}
 
-						for (const node of window.tree) {
-							dfs (node);
-						}
+							dfs (window.tree);
 
             myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 						
@@ -156,9 +158,13 @@
 							$('#spinner').addClass ('fa-spin');
 
 							var request = $.ajax({
+								    xhrFields: {
+        withCredentials: true
+    },
+								dataType: 'jsonp',
 								async: false,
 								method: 'GET',
-								url: "http://arteach.tk/api/v1.0/text/map/", 
+								url: "http://arteach.tk/api/v1.1/text/answer/", 
 								data: { text: $('#text').val(), question: $('#question').val () }
 							});
 
@@ -198,9 +204,9 @@
 				<i class="fa fa-spinner fa-4x" aria-hidden="true" id="spinner"></i>
 			</div>
 		</div>
-		<div id="sample">
-				<div id="myDiagramDiv" style="background-color: whitesmoke; border: solid 1px black; width: 100%; height: 700px"></div>
-		</div>
+		<div id="sample" style="padding: 50px 50px">
+				<div id="myDiagramDiv" style="background-color: whitesmoke; border: solid 1px black; width: 80%; height: 700px"></div>
+			</div>
 </body>
 
 </html>
